@@ -16,8 +16,8 @@ export async function POST(req: NextRequest) {
     mode: 'subscription',
     payment_method_types: ['card'],
     line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://lapizarra-app.com'}/gracias`,
-    cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://lapizarra-app.com'}/#precios`,
+    success_url: 'https://lapizarra-app.com/gracias',
+    cancel_url: 'https://lapizarra-app.com/#precios',
   })
 
   return NextResponse.json({ url: session.url })
