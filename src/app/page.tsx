@@ -371,6 +371,19 @@ function CTASection() {
   );
 }
 
+/* ─────────────────────────── Disclaimer ── */
+function DisclaimerSection() {
+  return (
+    <section style={{ backgroundColor: "#0d1f16" }} className="py-6">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <p className="text-xs text-center" style={{ color: "rgba(240, 237, 230, 0.6)" }}>
+          Todo el contenido es análisis deportivo con fines de entretenimiento. No somos asesores de apuestas. El autor no es responsable de pérdidas económicas. Apuesta responsablemente. Los resultados pasados no garantizan resultados futuros.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 /* ──────────────────────────────── Footer ── */
 function FooterSection() {
   return (
@@ -439,6 +452,7 @@ export default function Page() {
         <TestimonialsSection />
         <CTASection />
       </main>
+      <DisclaimerSection />
       <FooterSection />
     </>
   );
