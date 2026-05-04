@@ -1,22 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
-
 export async function POST(req: NextRequest) {
-  const { plan } = await req.json()
+  try {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      return NextResponse.json({ error: 'Missing STRIPE_SECRET_KEY' }, { status: 500 })
+    }
 
-  const priceId = plan === 'weekly'
-    ? 'price_1TTB6PRbm2epvx7gFw3A3T6Y'
-    : 'price_1TTB7kRbm2epvx7gEzSyk2Oj'
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 
-  const session = await stripe.checkout.sessions.create({
-    mode: 'subscription',
-    payment_method_types: ['card'],
-    line_items: [{ price: priceId, quantity: 1 }],
-    success_url: 'https://lapizarra-app.com/gracias',
-    cancel_url: 'https://lapizarra-app.com/#precios',
-  })
+    const { plan } = await req.json()
 
-  return NextResponse.json({ url: session.url })
+    const priceId = plan === 'weekly'
+      ? 'price_1TTB6PRbm2epvx7gFw3A3T6Y'
+      : 'price_1TTB7kRbm2epvx7gEzSyk2Oj'
+
+    const session = await stripe.checkout.sessions.create({
+      mode: 'subscription',
+      payment_method_types: ['card'],
+      line_items: [{ price: priceId, quantity: 1 }],
+      success_url: 'https://lapizarra-app.com/gracias',
+      cancel_url: 'https://lapizarra-app.com/#precios',
+    })
+
+    return NextResponse.json({ url: session.url })
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 })
+  }
 }
