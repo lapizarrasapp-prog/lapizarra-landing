@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 
     const priceId = plan === 'weekly'
       ? 'price_1TTDnUDKc7vFl8ryxccLkrPE'
-      : 'price_1TTDo4DKc7vFl8ry5om7Q4ma'
+      : 'price_1TTESYDKc7vFl8ryIqtgWhmh'
 
     const session = await stripe.checkout.sessions.create({
       mode: 'subscription',
