@@ -1,3 +1,5 @@
+"use client";
+
 import NavBar from "@/components/NavBar";
 import HeroSection from "@/components/HeroSection";
 import HistorialSection from "@/components/HistorialSection";
@@ -124,12 +126,17 @@ function PickTypesSection() {
 }
 
 /* ──────────────────────────────── Pricing ── */
-function PricingSection() {
-  const weeklyUrl =
-    process.env.NEXT_PUBLIC_STRIPE_WEEKLY_URL ?? "#registro";
-  const monthlyUrl =
-    process.env.NEXT_PUBLIC_STRIPE_MONTHLY_URL ?? "#registro";
+async function handleCheckout(plan: "weekly" | "monthly") {
+  const res = await fetch("/api/checkout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ plan }),
+  });
+  const data = await res.json();
+  if (data.url) window.location.href = data.url;
+}
 
+function PricingSection() {
   const freeFeatures = [
     "Picks básicos en Telegram",
     "Resultados del día",
@@ -227,24 +234,21 @@ function PricingSection() {
               ))}
             </ul>
 
-            {/* Two Stripe payment link buttons */}
             <div className="flex flex-col gap-3">
-              <a
-                href={weeklyUrl}
-                target={weeklyUrl.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold px-6 py-3 text-sm hover:bg-primary/90 active:scale-[0.98] transition-all duration-150 text-center"
+              <button
+                type="button"
+                onClick={() => handleCheckout("weekly")}
+                className="inline-flex items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold px-6 py-3 text-sm hover:bg-primary/90 active:scale-[0.98] transition-all duration-150"
               >
                 Suscribirse — $15 / semana
-              </a>
-              <a
-                href={monthlyUrl}
-                target={monthlyUrl.startsWith("http") ? "_blank" : undefined}
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-lg border border-primary/40 text-primary font-semibold px-6 py-3 text-sm hover:bg-primary/10 active:scale-[0.98] transition-all duration-150 text-center"
+              </button>
+              <button
+                type="button"
+                onClick={() => handleCheckout("monthly")}
+                className="inline-flex items-center justify-center rounded-lg border border-primary/40 text-primary font-semibold px-6 py-3 text-sm hover:bg-primary/10 active:scale-[0.98] transition-all duration-150"
               >
                 Suscribirse — $50 / mes
-              </a>
+              </button>
             </div>
           </div>
         </div>

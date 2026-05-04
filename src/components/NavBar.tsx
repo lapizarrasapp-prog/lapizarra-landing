@@ -46,6 +46,19 @@ export default function NavBar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
+            <a
+              href="https://instagram.com/lapizarraapp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram de La Pizarra"
+              className="text-muted-foreground hover:text-foreground transition-colors duration-150"
+            >
+              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+              </svg>
+            </a>
             <Button
               variant="outline"
               size="sm"
@@ -91,6 +104,19 @@ export default function NavBar() {
                 >
                   Precios
                 </Link>
+                <a
+                  href="https://instagram.com/lapizarraapp"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-base text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  </svg>
+                  @lapizarraapp
+                </a>
               </nav>
               <div className="flex flex-col gap-3 pt-6 border-t border-border">
                 <div
