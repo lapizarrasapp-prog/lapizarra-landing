@@ -127,13 +127,24 @@ function PickTypesSection() {
 
 /* ──────────────────────────────── Pricing ── */
 async function handleCheckout(plan: "weekly" | "monthly") {
-  const res = await fetch("/api/checkout", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ plan }),
-  });
-  const data = await res.json();
-  if (data.url) window.location.href = data.url;
+  try {
+    console.log("Iniciando checkout:", plan)
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ plan })
+    })
+    console.log("Respuesta status:", res.status)
+    const data = await res.json()
+    console.log("Data recibida:", data)
+    if (data.url) {
+      window.location.href = data.url
+    } else {
+      alert("Error: " + JSON.stringify(data))
+    }
+  } catch (err) {
+    alert("Error de conexión: " + err)
+  }
 }
 
 function PricingSection() {
